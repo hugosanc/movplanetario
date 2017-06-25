@@ -34,9 +34,9 @@ class Planeta:
 		self.y= self.y + self.vy*dt + 0.5*aty*dt**2
 		self.vy= self.vy + aty*dt
 
-p1=Planeta(1,1,0,0,0,0,0,-1,0)
-p2=Planeta(1,0,0,0,0,1,0,-1,0)
-p3=Planeta(1,-1,0,0,0,0,0,1,0)
+p1=Planeta(1,1,0,0,0,0,np.sqrt(3),-1,0)
+p2=Planeta(1,0,np.sqrt(5),0,0,1,0,-1,0)
+p3=Planeta(1,-1,0,0,0,np.sqrt(3),0,1,0)
 
 def wrap_angle(angle):
 	return angle%360
@@ -51,7 +51,7 @@ sun = pygame.image.load("sun.png").convert_alpha() #alpha = transparencia
 sun = pygame.transform.scale(sun,(100,100))
 
 sunw,sunh = sun.get_size() #transforma em uma tupla
-pygame.display.set_caption("3 planetas iguais alinhados")
+pygame.display.set_caption("3 planetas iguais")
 
 while True:
 	for event in pygame.event.get():
