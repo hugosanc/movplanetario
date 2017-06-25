@@ -38,7 +38,7 @@ class Planeta:
 		self.r= np.sqrt(self.x**2+self.y**2)
 		self.v= np.sqrt(self.vx**2+self.vy**2)
 		
-p1=Planeta(1,1,0,0,2*np.pi+0.5)#
+p1=Planeta(1,1,0,0,2*np.pi+1)#
 	
 	
 tmax=4
@@ -77,5 +77,5 @@ plt.title(r'\textnormal{Espaco de fases (r por v)}',fontsize=12)#
 plt.plot (r,v, 'r-', linewidth=1)#
 plt.legend(loc="upper right")
 plt.grid()
-plt.savefig("espacodefases4.pdf",dpi=96)#
+plt.savefig("espacodefases6.pdf",dpi=96)#
 plt.show()	
