@@ -17,14 +17,14 @@ class Planeta:
 		self.m= massa
 		self.x= x
 		self.y= y
-		self.r1= np.sqrt((x-1)**2+y**2)
-		self.r2= np.sqrt((x+1)**2+y**2)
+		self.r= np.sqrt(x**2+y**2)
 		self.vx= vx
 		self.vy= vy
-		self.e= 0.5*massa*(vx**2+vy**2) - (GM*m/self.r1 + GM*m/self.r2)
+		self.e= 0.5*massa*(vx**2+vy**2) - GM*m/self.r
 		
 	def a(self, pos):
-		at= -(GM/self.r1**3 + GM/self.r2**3)*pos
+		r= np.sqrt(self.x**2+self.y**2)
+		at= -(GM/r**3)*pos
 		return at
 		
 	def move(self):
@@ -34,9 +34,9 @@ class Planeta:
 		aty= self.a(self.y)
 		self.y= self.y + self.vy*dt + 0.5*aty*dt**2
 		self.vy= self.vy + aty*dt
-		self.e= 0.5*m*(self.vx**2+self.vy**2) - (GM*m/self.r1 + GM*m/self.r2)
+		self.e= 0.5*m*(self.vx**2+self.vy**2) - GM*m/self.r
 
-terra=Planeta(1,0.1,1,0,0)
+terra=Planeta(1,1,0,0,2*np.pi)
 
 def wrap_angle(angle):
 	return angle%360
@@ -48,10 +48,10 @@ myfont = pygame.font.Font(None,60) #fonte, tamanho
 space = pygame.image.load("space.png").convert() # carrega imagem
 planet = pygame.image.load("planeta.png").convert_alpha() 
 sun = pygame.image.load("sun.png").convert_alpha() #alpha = transparencia
-sun = pygame.transform.scale(sun,(50,50))
+sun = pygame.transform.scale(sun,(100,100))
 
 sunw,sunh = sun.get_size() #transforma em uma tupla
-pygame.display.set_caption("Duas estrelas e um planeta")
+pygame.display.set_caption("O Sol e a Terra")
 
 while True:
 	for event in pygame.event.get():
@@ -59,8 +59,7 @@ while True:
 			sys.exit()
 	planet = pygame.transform.scale(planet,(40,40))
 	screen.blit(space, (0,0))
-	screen.blit(sun, (25, 300-25))
-	screen.blit(sun, (600-75, 300-25))
+	screen.blit(sun, (-50+300, -sunh/2+300))
 	xant,yant = terra.x, terra.y
 	terra.move()
 	dx = terra.x - xant
